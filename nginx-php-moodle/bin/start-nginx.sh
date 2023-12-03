@@ -21,4 +21,4 @@ echo "Starting Nginx"
 # shellcheck disable=SC1091
 source /usr/local/bin/shtdlib.sh
 
-envsubst /etc/nginx/conf.d/moodle.template > /etc/nginx/conf.d/moodle.conf && nginx -g 'daemon off;'
+envsubst '80' < /etc/nginx/conf.d/moodle.template > /etc/nginx/conf.d/moodle.conf && nginx -g 'daemon off;'
