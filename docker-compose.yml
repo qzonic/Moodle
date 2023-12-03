@@ -1,0 +1,61 @@
+version: '3.6'
+
+services:
+  nginx-php-moodle:
+    networks:
+      all:
+    build:
+      args:
+        NGINX_VERSION: "${NGINX_VERSION}"
+      context: ./nginx-php-moodle
+    depends_on:
+      - postgres
+    environment:
+      HTTP_PORT: "${HTTP_PORT}"
+      MOODLE_WWWROOT: "${MOODLE_WWWROOT}"
+      MOODLE_UPGRADE_KEY: "${MOODLE_UPGRADE_KEY}"
+      PGSQL_DATABASE: "${PGSQL_DATABASE}"
+      PGSQL_USER: "${PGSQL_USER}"
+      PGSQL_PASSWORD: "${PGSQL_PASSWORD}"
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+    volumes:
+      - type: bind
+        source: ./conf/etc/nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+      - type: bind
+        source: ./conf/etc/nginx/conf.d
+        target: /etc/nginx/conf.d
+      - type: bind
+        source: ./conf/etc/php/8.0/fpm/php.ini
+        target: /etc/php/8.0/fpm/php.ini
+      - type: bind
+        source: ./conf/etc/php/8.0/mods-available/opcache.ini
+        target: /etc/php/8.0/mods-available/opcache.ini
+      - type: bind
+        source: ./conf/etc/php/8.0/fpm/php-fpm.conf
+        target: /etc/php/8.0/fpm/php-fpm.conf
+      - type: bind
+        source: ./conf/etc/php/8.0/fpm/pool.d/www.conf
+        target: /etc/php/8.0/fpm/pool.d/www.conf
+      - type: bind
+        source: ./moodledata
+        target: /opt/moodle/moodledata
+  postgres:
+    networks:
+      all:
+    image: postgres:10.0
+    environment:
+      POSTGRES_DB: "${PGSQL_DATABASE}"
+      POSTGRES_USER: "${PGSQL_USER}"
+      POSTGRES_PASSWORD: "${PGSQL_PASSWORD}"
+    volumes:
+      - type: volume
+        source: db
+        target: /var/lib/postgresql/data
+
+networks:
+  all:
+
+volumes:
+  db:

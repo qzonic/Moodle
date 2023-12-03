@@ -1,0 +1,29 @@
+server {
+    listen 80;
+    server_name _;
+
+    root   /opt/moodle/moodle-4.0.4;
+
+    location / {
+        index   index.php;
+    }
+
+    location /dataroot/ {
+        internal;
+        # ensure the path ends with /
+        alias /opt/moodle/moodledata/;
+    }
+
+    location ~ [^/]\.php(/|$) {
+        fastcgi_split_path_info  ^(.+\.php)(/.+)$;
+        fastcgi_index            index.php;
+        fastcgi_pass             unix:/var/run/php-fpm/www.sock;
+
+        include fastcgi_params;
+
+        fastcgi_param   PATH_INFO       $fastcgi_path_info;
+        fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+        fastcgi_param HTTP_PROXY "";
+    }
+}

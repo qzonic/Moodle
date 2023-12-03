@@ -1,0 +1,3 @@
+[submodule "lib/shtdlib"]
+    path = lib/shtdlib
+    url = git@github.com:sdelements/shtdlib.git
