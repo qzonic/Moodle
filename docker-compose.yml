@@ -18,7 +18,7 @@ services:
       PGSQL_USER: "${PGSQL_USER}"
       PGSQL_PASSWORD: "${PGSQL_PASSWORD}"
     ports:
-      - "${HTTP_PORT}:${HTTP_PORT}"
+      - "80:80"
     volumes:
       - ./moodledata:/opt/moodle/moodledata
       - type: bind
