@@ -20,6 +20,7 @@ services:
     ports:
       - "${HTTP_PORT}:${HTTP_PORT}"
     volumes:
+      - ./moodledata:/opt/moodle/moodledata
       - type: bind
         source: ./conf/etc/nginx/nginx.conf
         target: /etc/nginx/nginx.conf
@@ -38,9 +39,6 @@ services:
       - type: bind
         source: ./conf/etc/php/8.0/fpm/pool.d/www.conf
         target: /etc/php/8.0/fpm/pool.d/www.conf
-      - type: bind
-        source: ./moodledata
-        target: /opt/moodle/moodledata
   postgres:
     networks:
       all:

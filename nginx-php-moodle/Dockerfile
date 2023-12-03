@@ -62,8 +62,8 @@ RUN echo "Starting PHP install..." \
 RUN echo "Starting Moodle App copy..." && mkdir -v /opt/moodle && mkdir -v /opt/moodle/moodle-4.0.4
 
 COPY ./moodle-4.0.4/ /opt/moodle/moodle-4.0.4/
-RUN find /opt/moodle/moodle-4.0.4 -type d -exec chmod 777 {} \;
-#RUN find /opt/moodle/moodledata -type d -exec chmod 777 {} \;
+RUN mkdir /opt/moodle/moodledata
+RUN find /opt/moodle/moodledata -type d -exec chmod 777 {} \;
 
 # Install Moodle theme
 RUN echo "Starting Moodle theme install..." \
