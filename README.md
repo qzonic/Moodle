@@ -36,7 +36,7 @@ cd moodle/
 
 *Следующим шагом нужно выдать директории moodledata права уровня 777:*
 ```
-find /opt/moodle/moodledata -type d -exec chmod 777 {} \;
+find ./moodledata -type d -exec chmod 777 {} \;
 ```
 *Теперь необходимо собрать Docker-контейнеры:*
 ```
