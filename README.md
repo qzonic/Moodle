@@ -19,7 +19,7 @@
 
 *Клонировать репозиторий и перейти в него в командной строке:*
 ```
-https://github.com/qzonic/moodle.git
+git clone https://github.com/qzonic/moodle.git
 ```
 ```
 cd moodle/
